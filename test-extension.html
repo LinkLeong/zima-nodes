@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZimaOS Client Extension Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f8fafc;
+        }
+        .container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #2563eb;
+            margin-bottom: 20px;
+        }
+        .step {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f1f5f9;
+            border-radius: 8px;
+            border-left: 4px solid #2563eb;
+        }
+        .step h3 {
+            margin-top: 0;
+            color: #1e293b;
+        }
+        .code {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 10px;
+            border-radius: 6px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 14px;
+        }
+        .success {
+            background: #dcfce7;
+            border-left-color: #16a34a;
+        }
+        .warning {
+            background: #fef3c7;
+            border-left-color: #d97706;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 ZimaOS Client Chrome Extension 测试页面</h1>
+        
+        <div class="step success">
+            <h3>✅ 插件文件已创建完成</h3>
+            <p>所有必要的文件都已生成，包括：</p>
+            <ul>
+                <li>manifest.json - 插件配置文件</li>
+                <li>popup.html/popup.js - 主弹窗界面</li>
+                <li>options.html/options.js - 配置页面</li>
+                <li>background.js - 后台服务</li>
+                <li>CSS样式文件</li>
+                <li>SVG图标文件</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3>📦 安装插件</h3>
+            <p>请按照以下步骤安装插件：</p>
+            <ol>
+                <li>打开Chrome浏览器</li>
+                <li>在地址栏输入：<span class="code">chrome://extensions/</span></li>
+                <li>开启右上角的"开发者模式"</li>
+                <li>点击"加载已解压的扩展程序"</li>
+                <li>选择当前项目文件夹</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h3>🔧 测试配置功能</h3>
+            <p>安装完成后：</p>
+            <ol>
+                <li>点击浏览器工具栏中的ZimaOS图标</li>
+                <li>应该会显示配置提示页面</li>
+                <li>点击"开始配置"或设置按钮</li>
+                <li>填写测试配置信息（可以使用假数据测试界面）</li>
+                <li>测试保存和加载功能</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h3>🏠 测试主页面功能</h3>
+            <p>配置完成后：</p>
+            <ol>
+                <li>再次点击插件图标</li>
+                <li>应该显示主页面而不是配置提示</li>
+                <li>检查连接状态显示</li>
+                <li>测试应用图标点击功能</li>
+                <li>测试"打开ZimaOS"按钮</li>
+            </ol>
+        </div>
+
+        <div class="step warning">
+            <h3>⚠️ 调试提示</h3>
+            <p>如果遇到问题：</p>
+            <ul>
+                <li>右键点击插件图标 → "检查弹出式窗口" 查看控制台日志</li>
+                <li>在扩展程序页面点击"service worker"查看后台脚本日志</li>
+                <li>检查网络请求是否被CORS策略阻止</li>
+                <li>确认所有文件路径正确</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3>🎯 下一步改进建议</h3>
+            <ul>
+                <li>添加更多ZimaOS应用的快捷方式</li>
+                <li>实现真实的ZimaOS API集成</li>
+                <li>添加用户认证和会话管理</li>
+                <li>优化图标和界面设计</li>
+                <li>添加更多配置选项</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
