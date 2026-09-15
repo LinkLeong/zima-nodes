@@ -1,12 +1,10 @@
 {
   "manifest_version": 3,
   "name": "Zima Nodes",
-  "version": "1.0.4",
-  "description": "A Chrome extension to manage and access your ZimaOS system",
+  "version": "1.1.0",
+  "description": "Manage and quickly access multiple ZimaOS devices",
   "permissions": [
-    "storage",
-    "activeTab",
-    "tabCapture"
+    "storage"
   ],
   "host_permissions": [
     "http://*/*",

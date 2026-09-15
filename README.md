@@ -1,142 +1,68 @@
-# ZimaOS Client - Chrome Extension
+# Zima Nodes
 
-A Chrome browser extension for managing and quickly accessing ZimaOS systems.
+Zima Nodes is a Chrome extension for managing and opening multiple ZimaOS devices from one compact dashboard.
 
 ## Features
 
-- 🔧 **Configuration Management**: Easily configure ZimaOS IP address, username, and password
-- 🔐 **Auto Login**: Integrated ZimaOS login API with automatic token acquisition and management
-- 🔄 **Token Management**: Automatically refresh expired access tokens without re-login
-- 🏠 **Quick Access**: One-click access to ZimaOS homepage
-- 📱 **App Shortcuts**: Quick access to commonly used ZimaOS applications
-- 🔄 **Connection Status**: Real-time display of ZimaOS connection status
-- ⚙️ **Settings Management**: Modify connection configuration anytime
-- 🐛 **Debug Features**: Built-in debug logging for development and troubleshooting
+- Add, edit, switch, open, and remove multiple ZimaOS devices
+- Check every device in parallel and show its latest connectivity state
+- Keep an independent access and refresh token for each device
+- Refresh an expired session or sign in again with that device's credentials
+- Open the selected ZimaOS dashboard and installed apps
+- Follow the system theme or select light/dark mode
 
-## Installation
+## Install for development
 
-### Developer Mode Installation (Recommended for Testing)
+1. Open `chrome://extensions/`.
+2. Enable **Developer mode**.
+3. Choose **Load unpacked** and select this repository.
+4. Reload the extension after changing source files.
 
-1. Download or clone this project locally
-2. Open Chrome browser and navigate to the extensions management page:
-   - Method 1: Enter `chrome://extensions/` in the address bar
-   - Method 2: Click the three-dot menu in the top right → More tools → Extensions
-3. Enable "Developer mode" in the top right corner
-4. Click "Load unpacked"
-5. Select the project folder
-6. Extension installation complete!
+Chrome 88 or newer is required because the extension uses Manifest V3.
 
-## Usage Instructions
+Run the core regression tests with:
 
-### Initial Configuration
-
-1. After installing the extension, click the ZimaOS icon in the browser toolbar
-2. First-time use will show a configuration prompt, click "Start Configuration"
-3. Fill in the following information:
-   - **ZimaOS Address**: Your ZimaOS system IP address and port (e.g., `192.168.1.100:8080`)
-   - **Username**: ZimaOS login username
-   - **Password**: ZimaOS login password
-4. Click "Test Connection" to verify the configuration is correct
-5. Click "Save Configuration" to complete setup
-
-### Daily Usage
-
-1. **Quick Access**: Click the extension icon, then click "Open ZimaOS" to directly access the system homepage
-2. **App Shortcuts**: Click app icons in the extension popup to quickly open corresponding features
-3. **View Status**: The extension displays current ZimaOS connection status (online/offline)
-4. **Modify Configuration**: Click the settings button or "Modify Configuration" to update connection information
-
-### Available App Shortcuts
-
-- 📁 **File Manager**: Access ZimaOS file manager
-- 🎵 **Media Center**: Open media playback and management
-- 🐳 **Docker**: Manage Docker containers
-- ⚙️ **System Settings**: Access system configuration
-- 💻 **Terminal**: Open web terminal
-- 📊 **System Monitor**: View system performance monitoring
-
-## Debug Guide
-
-### Development Environment Setup
-
-1. Ensure the extension is installed following the above method
-2. Find "ZimaOS Client" on the Chrome extensions page
-3. Click "Details" to enter the extension details page
-
-### Debugging Methods
-
-#### 1. View Console Logs
-
-**Popup Page Debugging**:
-- Right-click the extension icon and select "Inspect popup"
-- View logs in the Console tab of developer tools
-
-**Configuration Page Debugging**:
-- Click "Extension options" on the extension details page
-- Press F12 on the configuration page to open developer tools
-
-**Background Script Debugging**:
-- Click "Inspect views" next to "service worker" on the extension details page
-- View background script logs
-
-#### 2. Common Issue Troubleshooting
-
-**Connection Test Failed**:
-- Check if ZimaOS address format is correct
-- Confirm ZimaOS system is running
-- Check network connection
-- Look for CORS errors in browser console
-
-**Extension Cannot Load**:
-- Check if manifest.json syntax is correct
-- Confirm all referenced file paths exist
-- Check error messages on Chrome extensions page
-
-**Style Display Issues**:
-- Check if CSS file paths are correct
-- Confirm files exist in styles directory
-- Use developer tools to check CSS loading
-
-#### 3. Reload Extension
-
-After modifying code, you need to reload the extension:
-1. Go to `chrome://extensions/`
-2. Find the "Zima Nodes" extension
-3. Click the refresh button (🔄)
-4. Re-test functionality
-
-### File Structure
-
+```sh
+node --test tests/core.test.js
 ```
-zima-client/
-├── manifest.json          # Extension configuration file
-├── popup.html             # Main popup page
-├── options.html           # Configuration page
-├── background.js          # Background script
+
+## Device data and security
+
+Device addresses, usernames, passwords, and sessions are stored in `chrome.storage.local`. They stay in the current browser profile and are not synced through the Google account. Existing installations are migrated once from the former sync-based storage.
+
+Chrome extension storage is not a password vault. Credentials remain available to this extension and to anyone with access to the browser profile; storing them enables per-device automatic sign-in when refresh tokens expire.
+
+## Scope
+
+The extension is intentionally a multi-device dashboard: it tracks device availability and opens ZimaOS dashboards/apps from LAN, VPN, or other user-provided HTTP(S) addresses. Native peer networking, drive mounting, PeerDrop, and backup orchestration require operating-system integration and remain outside the browser extension's scope.
+
+Zima Nodes needs access to HTTP and HTTPS hosts because ZimaOS devices may use arbitrary LAN addresses, ports, and domains. It only requests Chrome's `storage` permission; unrelated recording and active-tab permissions are not used.
+
+## Project structure
+
+```text
+.
+├── manifest.json
+├── popup.html
+├── options.html
+├── background.js
 ├── scripts/
-│   ├── popup.js          # Popup page script
-│   └── options.js        # Configuration page script
-├── styles/
-│   ├── popup.css         # Popup page styles
-│   └── options.css       # Configuration page styles
-├── icons/
-│   └── icon.svg          # Extension icon
-└── README.md             # Documentation
+│   ├── device-store.js
+│   ├── zimaos-api.js
+│   ├── popup.js
+│   └── options.js
+└── styles/
+    ├── popup.css
+    └── options.css
 ```
 
-## Technical Details
+## Debugging
 
-- **Manifest Version**: 3 (Latest version)
-- **Permissions**: storage (store configuration), activeTab (open tabs)
-- **Storage**: Uses Chrome Storage API for synchronized configuration storage
-- **Compatibility**: Chrome 88+
+- Popup: right-click the extension popup and choose **Inspect**.
+- Options: open the extension details, then **Extension options**.
+- Background worker: use **Inspect views** on `chrome://extensions/`.
 
-## Important Notes
-
-1. The extension uses Chrome Storage API to store configuration information, data will sync across devices logged into the same Google account
-2. Passwords are stored locally in plain text, please ensure device security
-3. Connection testing uses simple HTTP requests, which may be limited by CORS policies
-4. Recommended for use in LAN environments to ensure ZimaOS system security
+Connection checks use `/v2/zimaos/device/info`, so a device is only marked online after an authenticated response. A stored token by itself is not treated as proof that the device is reachable.
 
 ## License
 

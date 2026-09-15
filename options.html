@@ -1,28 +1,24 @@
-<!--
- * @Author: a624669980@163.com a624669980@163.com
- * @Date: 2025-07-02 16:30:46
- * @LastEditors: a624669980@163.com a624669980@163.com
- * @LastEditTime: 2025-07-11 15:36:28
- * @FilePath: /zima-nodes/options.html
- * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
--->
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZimaOS Client - 配置</title>
+    <title>Zima Nodes - Current Device</title>
     <link rel="stylesheet" href="styles/options.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>ZimaOS Client Settings</h1>
-            <p>Configure your ZimaOS connection</p>
+            <h1>Current Device</h1>
+            <p>Update the selected ZimaOS connection</p>
         </header>
 
         <main>
             <form id="configForm">
+                <div class="form-group">
+                    <label for="name">Display name:</label>
+                    <input type="text" id="name" name="name" placeholder="Optional device label">
+                </div>
                 <div class="form-group">
                     <label for="host">ZimaOS Address:</label>
                     <input type="text" id="host" name="host" placeholder="e.g. 192.168.1.100:8080 or zimaos.local" required>
@@ -48,14 +44,6 @@
 
             <div id="status" class="status hidden"></div>
 
-            <!-- 录制控制区 -->
-            <div id="recordSection" style="margin:16px 0;">
-              <button id="startRecordBtn" class="btn btn-primary">Start Recording</button>
-              <button id="stopRecordBtn" class="btn btn-secondary" style="display:none;">Stop Recording</button>
-              <span id="recordStatus" style="margin-left:12px;color:#d97706;"></span>
-            </div>
-
-            <!-- 调试日志区域 -->
             <div class="debug-section">
                 <h3>Debug Logs <button type="button" id="clearLogsBtn" class="btn-clear">Clear</button></h3>
                 <div id="debugLogs" class="debug-logs"></div>
@@ -63,6 +51,7 @@
         </main>
     </div>
 
+    <script src="scripts/device-store.js"></script>
     <script src="scripts/zimaos-api.js"></script>
     <script src="scripts/options.js"></script>
 </body>

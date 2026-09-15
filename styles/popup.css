@@ -52,7 +52,8 @@ body {
     padding: 6px;
     border-radius: 6px;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 0.78rem;
+    font-weight: 700;
     transition: background-color 0.2s;
 }
 
@@ -185,6 +186,25 @@ body {
     align-items: center;
     justify-content: center;
     min-width: 0;
+    border: 0;
+    color: inherit;
+}
+
+.app-item.not-running {
+    cursor: not-allowed;
+    filter: grayscale(1);
+    opacity: 0.55;
+}
+
+.apps-message {
+    grid-column: 1 / -1;
+    padding: 18px 8px;
+    color: #6b7280;
+    text-align: center;
+}
+
+.apps-message.error {
+    color: #dc2626;
 }
 
 .app-item:hover {
@@ -518,16 +538,44 @@ body {
     padding: 24px 16px;
     min-height: 350px;
 }
+.device-list-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 14px;
+}
 .device-list-page h2 {
     font-size: 1.2rem;
-    margin-bottom: 16px;
+    margin-bottom: 3px;
     color: #2563eb;
+}
+.device-summary,
+.device-checked {
+    color: #6b7280;
+    font-size: 0.75rem;
+}
+.device-list-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+.empty-devices {
+    padding: 34px 16px;
+    border: 1px dashed #cbd5e1;
+    border-radius: 10px;
+    color: #64748b;
+    text-align: center;
 }
 #deviceList {
     margin-bottom: 16px;
 }
 .device-item {
-    display: flex;
+    display: grid;
+    grid-template-columns: 36px minmax(0, 1fr) auto;
+    grid-template-areas:
+        "icon info status"
+        "actions actions actions";
     align-items: center;
     justify-content: flex-start;
     background: #fff;
@@ -543,6 +591,7 @@ body {
     background: #f0f7ff;
 }
 .device-icon {
+    grid-area: icon;
     width: 36px;
     height: 36px;
     border-radius: 8px;
@@ -560,6 +609,7 @@ body {
     border-radius: 8px;
 }
 .device-info {
+    grid-area: info;
     flex: 1;
     min-width: 0;
 }
@@ -578,6 +628,7 @@ body {
     text-overflow: ellipsis;
 }
 .device-status {
+    grid-area: status;
     margin-left: 8px;
     font-size: 0.85rem;
     font-weight: 500;
@@ -588,11 +639,18 @@ body {
 .device-status.offline {
     color: #ef4444;
 }
+.device-status.checking {
+    color: #d97706;
+}
 .device-actions {
+    grid-area: actions;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: flex-end;
+    flex-wrap: wrap;
     gap: 4px;
-    margin-left: 10px;
+    margin-top: 8px;
+    margin-left: 48px;
 }
 .device-actions button {
     margin: 0;
@@ -681,7 +739,10 @@ body {
     color: #2563eb;
     font-size: 0.95em;
     font-weight: 600;
-    margin-left: 4px;
+    margin-left: 6px;
+    padding: 1px 5px;
+    border: 1px solid currentColor;
+    border-radius: 999px;
 }
 [data-theme="dark"] .current-device-tag {
     color: #60a5fa;
@@ -723,21 +784,21 @@ body {
 /* 全局主题色蓝色 */
 .device-list-page h2,
 .modal-content h3,
-.btn-primary,
 .current-device-tag {
     color: #0057FF !important;
 }
 [data-theme="dark"] .device-list-page h2,
 [data-theme="dark"] .modal-content h3,
-[data-theme="dark"] .btn-primary,
 [data-theme="dark"] .current-device-tag {
     color: #90bfff !important;
 }
 .btn-primary {
     background: linear-gradient(135deg, #0057FF, #2563eb) !important;
     border: 1px solid #0057FF !important;
+    color: #fff !important;
 }
 [data-theme="dark"] .btn-primary {
     background: linear-gradient(135deg, #0057FF, #334155) !important;
     border: 1px solid #0057FF !important;
+    color: #fff !important;
 }
